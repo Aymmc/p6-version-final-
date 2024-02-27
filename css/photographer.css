@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100.. 1000&display=swap');
+
 #contact_modal {
     display: none;
 }
@@ -6,8 +8,12 @@
     background-color: #FAFAFA;
     height: 300px;
     margin: 0 100px;
+    /* width: 100%; */
 }
 
+.errorMsg{
+    display: none;
+}
 .contact_button {
     font-size: 20px;
     font-weight: bold;
@@ -21,16 +27,30 @@
     cursor: pointer;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 .modal {
+    top: 4%;
+    position: absolute;
+    overflow: hidden;
+    left: 33%;
+
     border-radius: 5px;
     background-color: #DB8876;
-    width: 50%;
+    width: 669px;
+    /* height: 900px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding: 35px;
     margin: auto;
+}
+
+.modal p {
+    font-size: 36px;
 }
 
 .modal header {
@@ -60,17 +80,152 @@ form label {
     font-size: 36px;
 }
 
-form div {
+.headermodal,
+.modaltitre {
+    width: 100%;
+}
+
+.headermodal div img {
+    cursor: pointer;
+}
+
+.headermodal :nth-child(1) {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+}
+
+.headermodal h2,
+.modaltitre h2 {
+    color: #000;
+
+    font-family: "DM Sans";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+form div {
     width: 100%;
     align-items: self-start;
-    margin-bottom: 26px;
 }
 
 form input {
-    width: 100%;
-    height: 68px;
     border: none;
     border-radius: 5px;
+    width: 599px;
+}
+
+.formData input {
+    height: 5vh;
+}
+
+.formMessage input {
+    height: 12.143vw;
+    margin-bottom: 25px;
+}
+
+.image img {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+
+}
+
+article h2 {
+    color: #D3573C;
+
+    font-family: "DM Sans";
+    font-size: 64px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+article h3 {
+    color: #901C1C;
+
+    font-family: "DM Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 16px;
+}
+
+article p {
+    color: #525252;
+
+    font-family: "DM Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+
+.triez {
+    margin: 20px 100px
+}
+
+.divgalerie {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 72px;
+}
+
+.imggalerie {
+    height: 350px;
+    width: 350px;
+    object-fit: cover;
+}
+
+.imagegalerie {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.titregalerie h4 {
+    color: #901C1C;
+
+    font-family: "DM Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.imggalerie {
+    color: #901C1C;
+
+    text-align: right;
+    font-family: "DM Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.titregalerie {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.divcoeur {
+    display: flex;
+    align-items: center;
+}
+
+.divcoeur p {
+    margin-left: 7px
+}
+.cardsection {
+    align-items: center;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
