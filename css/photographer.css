@@ -6,6 +6,7 @@
 
 .photograph-header {
     background-color: #FAFAFA;
+    padding: 30px;
     height: 300px;
     margin: 0 100px;
     /* width: 100%; */
@@ -177,14 +178,14 @@ article p {
 }
 
 .imggalerie {
-    height: 350px;
-    width: 350px;
+    height: 100%;
+    width: 100%;
     object-fit: cover;
 }
 
 .imagegalerie {
-    width: 100%;
-    height: 100%;
+    width: 375px;
+    height: 375px;
     object-fit: cover;
 }
 
@@ -198,16 +199,6 @@ article p {
     line-height: normal;
 }
 
-.imggalerie {
-    color: #901C1C;
-
-    text-align: right;
-    font-family: "DM Sans";
-    font-size: 24px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-}
 
 .titregalerie {
     display: flex;
@@ -218,10 +209,19 @@ article p {
 .divcoeur {
     display: flex;
     align-items: center;
+    
 }
 
 .divcoeur p {
-    margin-left: 7px
+    margin-left: 7px;
+    color: #901C1C;
+
+text-align: right;
+font-family: "DM Sans";
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
 }
 .cardsection {
     align-items: center;

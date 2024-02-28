@@ -44,7 +44,8 @@ class photographerCard {
     }
     getUserCardMedia() {
         const $wrapper = document.createElement('div');
-
+    
+        if (this.media && this.media.image) { // Vérification de la définition de 'media' et de 'image'
             const photographerCardMedia = `
             <article>
                 <div>
@@ -54,14 +55,18 @@ class photographerCard {
                     <div class="titregalerie">
                         <h4>${this.media.title}</h4>
                         <div class="divcoeur">
-                        <p>${this.media.likes} </p>
+                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt="image coeur" tabindex="0">
+                        </div>
                     </div>
                 </div>
             </article>
             `;
-
+        
             $wrapper.innerHTML = photographerCardMedia;
-
+        } else {
+            console.error("La propriété 'media' ou 'media.image' est indéfinie.");
+        }
+    
         return $wrapper;
     }
 }    

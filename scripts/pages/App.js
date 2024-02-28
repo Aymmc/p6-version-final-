@@ -6,7 +6,9 @@ class App {
         this.photographersApi = new photographerApi('../data/photographers.json');
         this.getMedia = document.querySelector('.divgalerie');
         this.getHeader = document.querySelector('.photograph-header');
+
     }
+
     // Fonction asynchrone pour récupérer les photographes
     async fetchPhotographers() {
         return await this.photographersApi.getPhotographers();
@@ -19,6 +21,22 @@ class App {
     async fetchHeader() {
         return await this.photographersApi.getHeader();
     }
+    attachCoeurEventListeners() {
+        let likes = document.querySelectorAll(".coeur");
+
+        likes.forEach((like) => {
+            like.addEventListener("click", (e) => {
+                if (!like.classList.contains("clicked")) { // Vérifie si le like n'a pas déjà été cliqué
+                    const likeNumber = e.target.previousElementSibling;
+                    let likeNumberValue = parseInt(likeNumber.textContent.trim().replace(/['"]+/g, ''));
+                    let newLikeValue = likeNumberValue + 1;
+                    likeNumber.textContent = newLikeValue;
+                    like.classList.add("clicked"); // Ajoute une classe pour indiquer que le like a été cliqué
+                }
+            });
+        });
+    }
+
     // Fonction principale asynchrone
     async main() {
         // Récupération des médias
@@ -30,7 +48,7 @@ class App {
         const photographers = await this.fetchPhotographers();
         // Filtrage des médias par ID
         const elementsWithId = media.filter(mediaItem => mediaItem.photographerId === parseInt(id));
-//-------------------------------------------- INDEX --------------------------------------------------------
+        //-------------------------------------------- INDEX --------------------------------------------------------
         if (window.location.pathname === '/') {
             // Création des cartes pour chaque photographe et ajout au DOM
             photographers.forEach((photographer) => {
@@ -38,7 +56,7 @@ class App {
                 this.$photographersWrapper.appendChild(Template.getUserCardDOM());
             });
         }
-// ------------------------------------Photographer------------------------------------------------------
+        // ------------------------------------Photographer------------------------------------------------------
         // ------------------------------------Header-------------------------------
         // Si un ID est présent dans l'URL
         if (id) {
@@ -62,9 +80,14 @@ class App {
                 const template = new photographerCard(photographer, mediaItem, photographer.name);
                 this.getMedia.appendChild(template.getUserCardMedia());
             });
+            this.attachCoeurEventListeners();
         } else {
             console.log("Aucun média trouvé pour l'ID spécifié.");
         }
+        this.SorterForm = new SorterForm(photographers, media);
+        this.SorterForm.render();
+        this.ProxyRatingSorter = new ProxyRatingSorter(photographers, media);
+        this.ProxyRatingSorter.render();
     }
 }
 
