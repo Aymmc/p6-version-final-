@@ -1,8 +1,8 @@
 // Définition de la classe SorterForm
 class SorterForm {
-    // Constructeur de la classe prenant les paramètres photograph et media
+    // Constructeur de la classe prenant les paramètres photographers et media
     constructor(photographers, media) {
-        // Assignation des paramètres photograph et media à des propriétés de l'instance
+        // Assignation des paramètres photographers et media à des propriétés de l'instance
         this.photographers = photographers;
         this.media = media;
 
@@ -20,6 +20,8 @@ class SorterForm {
 
     // Méthode asynchrone pour trier les médias
     async sorterMedias(sorter) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
         // Efface le contenu actuel du wrapper des médias
         this.clearPhotographWrapper()
 
@@ -28,19 +30,23 @@ class SorterForm {
             // Effectue le tri en utilisant l'instance de ProxyRatingSorter
             const sortedData = await this.ProxyRatingSorter.sorter(this.media, sorter)
             // Récupère les médias triés à partir des données triées
-            const sortedMedias = sortedData.data 
+            const sortedMedias = sortedData.data;
 
-            // Pour chaque média trié, crée une carte de média et l'ajoute au wrapper des médias
-            sortedMedias.forEach(Media => {
-                const Template = new photographerCard(Media)
-                this.$photosWrapper.appendChild(Template.getUserCardMedia())
-            })
+            if (sortedMedias.length > 0) {
+                console.log(this.media)
+                // Pour chaque média trié, crée une carte de média et l'ajoute au wrapper des médias
+                sortedMedias.forEach(mediaItem => {
+                    const photographer = this.photographers.find(p => p.id === mediaItem.photographerId);
+                    const template = new photographerCard(photographer, mediaItem, photographer.name);
+                    this.$photosWrapper.appendChild(template.getUserCardMedia());
+                });
+            }
         } else {
             // Si aucun type de tri n'est spécifié, affiche les médias dans l'ordre original
-            this.media.forEach(Media => {
-                const Template = new photographerCard(Media)
-                this.$photosWrapper.appendChild(Template.getUserCardMedia())
-            })
+            this.media.forEach(media => {
+                const template = new photographerCard(media);
+                this.$photosWrapper.appendChild(template.getUserCardMedia());
+            });
         }
     }
 
@@ -51,16 +57,16 @@ class SorterForm {
             .querySelector('form')
             .addEventListener('change', e => {
                 // Récupère la valeur sélectionnée dans le champ de sélection
-                const sorter = e.target.value
+                const sorter = e.target.value;
                 // Trie les médias en fonction du type de tri sélectionné
-                this.sorterMedias(sorter)
-            })
+                this.sorterMedias(sorter);
+            });
     }
 
     // Méthode pour effacer le contenu du wrapper des médias
     clearPhotographWrapper() {
         // Remplace le contenu HTML du wrapper des médias par une chaîne vide
-        this.$photosWrapper.innerHTML = ""
+        this.$photosWrapper.innerHTML = "";
     }
 
     // Méthode pour rendre le formulaire de tri
@@ -75,15 +81,14 @@ class SorterForm {
                     <option value="Titre" id="title">Titre</option>
                 </select>
             </form>
-        `
+        `;
 
         // Injecte le HTML du formulaire dans le wrapper du formulaire
-        this.$wrapper.innerHTML = sorterForm
+        this.$wrapper.innerHTML = sorterForm;
         // Associe la méthode onChangeSorter à l'événement de changement du formulaire
-        this.onChangeSorter()
+        this.onChangeSorter();
 
         // Ajoute le formulaire rendu au wrapper du formulaire dans le document
-        this.$filterFormWrapper.appendChild(this.$wrapper)
+        this.$filterFormWrapper.appendChild(this.$wrapper);
     }
 }
-

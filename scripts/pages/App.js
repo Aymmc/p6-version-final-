@@ -72,6 +72,7 @@ class App {
         }
         // ------------------------------------Media-------------------------------
         // Si des médias sont associés à l'ID
+
         if (elementsWithId.length > 0) {
             console.log(elementsWithId);
             // Création des cartes médias pour chaque média et ajout au DOM
@@ -86,8 +87,6 @@ class App {
         }
         this.SorterForm = new SorterForm(photographers, media);
         this.SorterForm.render();
-        this.ProxyRatingSorter = new ProxyRatingSorter(photographers, media);
-        this.ProxyRatingSorter.render();
     }
 }
 
