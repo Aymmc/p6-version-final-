@@ -49,9 +49,11 @@ class photographerCard {
             const photographerCardMedia = `
             <article>
                 <div>
+                <a href="../assets/sample_photo/${this.photographerName}/${this.media.image}">
                     <div class="imagegalerie">
                         <img class="imggalerie" src="../assets/sample_photo/${this.photographerName}/${this.media.image}">
                     </div>
+                    </a>
                     <div class="titregalerie">
                         <h4>${this.media.title}</h4>
                         <div class="divcoeur">

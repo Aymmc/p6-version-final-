@@ -28,12 +28,24 @@ class SorterForm {
         // Vérifie si un type de tri est spécifié
         if (!!sorter) {
             // Effectue le tri en utilisant l'instance de ProxyRatingSorter
-            const sortedData = await this.ProxyRatingSorter.sorter(this.media, sorter)
-            // Récupère les médias triés à partir des données triées
+            const photographerMedia = this.media.filter(
+                (item) => item.photographerId === parseInt(id)
+              );
+              let photographeDate = []
+              for (let i = 0; i < photographerMedia.length; i++){
+                photographeDate.push(photographerMedia[i].date)
+                
+            }console.log(photographeDate)
+              console.log(photographerMedia)
+              // Effectue le tri en utilisant l'instance de ProxyRatingSorter
+              const sortedData = await this.ProxyRatingSorter.sorter(
+                photographerMedia,
+                sorter
+              );
             const sortedMedias = sortedData.data;
-
+                console.log(sortedData.data.date)
             if (sortedMedias.length > 0) {
-                console.log(this.media)
+
                 // Pour chaque média trié, crée une carte de média et l'ajoute au wrapper des médias
                 sortedMedias.forEach(mediaItem => {
                     const photographer = this.photographers.find(p => p.id === mediaItem.photographerId);
@@ -77,7 +89,7 @@ class SorterForm {
                 <label for="filter-select"><p>Trier par</p>
                 <select name="filter-select" id="filter-select">
                     <option value="popularity" id="pop">Popularité</option>
-                    <option value="ASC" id="date">Date</option>
+                    <option value="date" id="date">Date</option>
                     <option value="Titre" id="title">Titre</option>
                 </select>
             </form>

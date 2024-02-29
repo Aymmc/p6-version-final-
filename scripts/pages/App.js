@@ -87,6 +87,9 @@ class App {
         }
         this.SorterForm = new SorterForm(photographers, media);
         this.SorterForm.render();
+        this.Lightbox = new Lightbox(photographers, media , URL);
+        this.Lightbox
+        
     }
 }
 
