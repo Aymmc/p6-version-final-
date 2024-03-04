@@ -1,8 +1,9 @@
 class photographerCard {
-    constructor(photographer, media, photographerName) {
+    constructor(photographer, media, photographerName, photographerPrice) {
         this.photographer = photographer
         this.media = media
         this.photographerName = photographerName
+        // this.photographer.price = photographerPrice
     }
     getHeader() {
         const $wrapper = document.createElement('div');
@@ -13,7 +14,7 @@ class photographerCard {
         <h3> ${this.photographer.city} , ${this.photographer.country} </h3>
         <p>${this.photographer.tagline}</p>
         </article>
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" >Contactez-moi</button>
         <div class="image ">
         <img alt="${this.photographer.name}" src="../../assets/photographers/${this.photographer.portrait}"/>
         </div>
@@ -45,14 +46,20 @@ class photographerCard {
     getUserCardMedia() {
         const $wrapper = document.createElement('div');
     
-        if (this.media && this.media.image) { // Vérification de la définition de 'media' et de 'image'
-            const photographerCardMedia = `
+        let mediaContent;
+    
+        if (this.media.video) {
+            // Si la clé "video" est présente dans l'objet media, cela signifie qu'il s'agit d'une vidéo
+            mediaContent = `
             <article>
                 <div>
-                <a href="../assets/sample_photo/${this.photographerName}/${this.media.image}">
-                    <div class="imagegalerie">
-                        <img class="imggalerie" src="../assets/sample_photo/${this.photographerName}/${this.media.image}">
-                    </div>
+                    <a href="../assets/sample_photo/${this.photographerName}/${this.media.video}">
+                        <div class="videogalerie">
+                            <video class="video" controls>
+                                <source src="../assets/sample_photo/${this.photographerName}/${this.media.video}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
                     </a>
                     <div class="titregalerie">
                         <h4>${this.media.title}</h4>
@@ -63,12 +70,50 @@ class photographerCard {
                 </div>
             </article>
             `;
-        
-            $wrapper.innerHTML = photographerCardMedia;
         } else {
-            console.error("La propriété 'media' ou 'media.image' est indéfinie.");
+            // Si la clé "video" n'est pas présente, cela signifie qu'il s'agit d'une image (par défaut)
+            mediaContent = `
+            <article>
+                <div>
+                    <a href="../assets/sample_photo/${this.photographerName}/${this.media.image}">
+                        <div class="imagegalerie">
+                            <img class="imggalerie" src="../assets/sample_photo/${this.photographerName}/${this.media.image}">
+                        </div>
+                    </a>
+                    <div class="titregalerie">
+                        <h4>${this.media.title}</h4>
+                        <div class="divcoeur">
+                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt="image coeur" tabindex="0">
+                        </div>
+                    </div>
+                </div>
+            </article>
+            `;
         }
+        
+        $wrapper.innerHTML = mediaContent;
     
         return $wrapper;
     }
+    GetCompteurLike() {
+        const $wrapper = document.createElement('div');
+        const compteur = `
+      
+        <div class="compteur">
+
+      </div>
+      <div class="argent">
+        <p>>/jour </p>
+      </div>
+
+
+        `
+
+
+        $wrapper.innerHTML = compteur;
+    
+        return $wrapper;
+    }
+    
+    
 }    

@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100.. 1000&display=swap');
 
-#contact_modal {
-    display: none;
-}
+
 
 .photograph-header {
     background-color: #FAFAFA;
@@ -31,7 +29,16 @@
 .no-scroll {
     overflow: hidden;
 }
+.contact_modal {
 
+    z-index: 1000;
+    width: 100%;
+    background-color: #fff;
+    height: 100% ;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 .modal {
     top: 4%;
     position: absolute;
@@ -228,4 +235,14 @@ line-height: normal;
     display: flex;
     width: 100%;
     justify-content: space-between;
+}
+
+.videogalerie{
+    width: 375px;
+    height: 375px;
+}
+.video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }

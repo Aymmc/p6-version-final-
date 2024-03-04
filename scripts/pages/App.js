@@ -6,9 +6,9 @@ class App {
         this.photographersApi = new photographerApi('../data/photographers.json');
         this.getMedia = document.querySelector('.divgalerie');
         this.getHeader = document.querySelector('.photograph-header');
-
+        this.GetCompteurLike = document.querySelector('main')
+        // this.init= init()
     }
-
     // Fonction asynchrone pour récupérer les photographes
     async fetchPhotographers() {
         return await this.photographersApi.getPhotographers();
@@ -21,9 +21,26 @@ class App {
     async fetchHeader() {
         return await this.photographersApi.getHeader();
     }
+    urlImages(url) {
+        let images = document.querySelectorAll(".imagegalerie img");
+        console.log(images)
+        images.forEach((img) => {
+            img.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (!img.classList.contains("clicked")) {
+                    console.log(e.target.src)
+                    url = e.target.src;
+                    this.lightbox = new Lightbox(url);
+                    this.lightbox.setUrl(url)
+                    this.lightbox.render(url);
+                    img.classList.add("clicked"); // Ajoute une classe pour indiquer que le like a été cliqué
+
+                }
+            });
+        });
+    }
     attachCoeurEventListeners() {
         let likes = document.querySelectorAll(".coeur");
-
         likes.forEach((like) => {
             like.addEventListener("click", (e) => {
                 if (!like.classList.contains("clicked")) { // Vérifie si le like n'a pas déjà été cliqué
@@ -36,7 +53,20 @@ class App {
             });
         });
     }
-
+    displayModal() {
+        const button = document.querySelector(".contact_button");
+        button.addEventListener("click", (e) => {
+            if (!button.classList.contains("clicked")) { // Vérifie si le like n'a pas déjà été cliqué
+                this.Modal = new Modal();
+                this.Modal.render()
+                button.classList.add("clicked"); // Ajoute une classe pour indiquer que le like a été cliqué
+            }
+        });
+    };
+    CompteurLike(photographer, mediaItem) {
+        const CompteurLike = new photographerCard(photographer, mediaItem);
+        this.GetCompteurLike.appendChild(CompteurLike.GetCompteurLike());
+    }
     // Fonction principale asynchrone
     async main() {
         // Récupération des médias
@@ -72,7 +102,6 @@ class App {
         }
         // ------------------------------------Media-------------------------------
         // Si des médias sont associés à l'ID
-
         if (elementsWithId.length > 0) {
             console.log(elementsWithId);
             // Création des cartes médias pour chaque média et ajout au DOM
@@ -82,17 +111,16 @@ class App {
                 this.getMedia.appendChild(template.getUserCardMedia());
             });
             this.attachCoeurEventListeners();
+            this.urlImages();
+            this.displayModal();
+            this.CompteurLike();
         } else {
             console.log("Aucun média trouvé pour l'ID spécifié.");
         }
         this.SorterForm = new SorterForm(photographers, media);
-        this.SorterForm.render();
-        this.Lightbox = new Lightbox(photographers, media , URL);
-        this.Lightbox
-        
+        this.SorterForm.render()
     }
 }
-
 // Création d'une instance de la classe App et exécution de la fonction principale
 const app = new App();
 app.main();

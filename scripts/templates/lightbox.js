@@ -1,40 +1,52 @@
 class Lightbox {
+    constructor(photographer, media, url) {
+        this.photographer = photographer,
+            this.media = media,
+            this.url = url
+        // Création d'un élément div pour le wrapper du formulaire de tri
+        this.$wrapper = document.createElement('div');
+        // Sélection de l'élément avec la classe "filter-wrapper" pour le wrapper du formulaire de tri
+        this.$wrapper.classList.add('lightbox');
+        this.$filterFormWrapper = document.querySelector('body');
 
- /**
-     * @param {string} url URL de l'image 
-     */
-   static init() {
-        const links = document.querySelectorAll(a[href$ = '.png'], a[href$ = '.jpg'], a[href$ = '.jpeg'])
-        .forEach(link => link.addEventListener('click', e =>{
-            e.preventDefault()
-            new Lightbox(e.currentTarget.getAttribute('href'))
-        }))
     }
-    constructor(photographer, media , url) {
-        this.photographer = photographer
-        this.media = media
-        const element = this.buildDOM(url)
-        document.body.appendChild(element)
-    }
- 
-    /**
-     * @param {string} url URL de l'image 
-     * @return {HTMLElement}
-     */
-    buildDOM(url) {
-        const dom = document.createElement('div')
-        dom.classList.add('lightbox')
-        dom.innerHTML = `<button class="lightbox__close">Fermer</button>
-            <button class="lightbox__next">Suivant</button>
-            <button class="lightbox__prev">Précédent</button>
-            <div class="lightbox__container"></div>`
-        dom.querySelector('.lightbox__close').addEventListener('click', this.close.bind(this))
-        dom.querySelector('.lightbox__next').addEventListener('click', this.next.bind(this))
-        dom.querySelector('.lightbox__prev').addEventListener('click', this.prev.bind(this))
-        return dom
+    closeModal(){
+        this.$filterFormWrapper.removeChild(this.$wrapper);
+    
       }
+    setUrl(url) {
+        this.url = url
+    }
+    render(url) {
+        //  console.log(this.url)
+        const lightbox =
+
+            `
+            <div class="divcontainer">
+            <button class="lightbox__close">Fermer</button>
+               <button class="lightbox__next">Suivant</button>
+               <button class="lightbox__prev">Précédent</button>
+               <div class="lightbox__container">
+               <img src="${this.url}">
+               </div>
+               <div class="lightbox__name">
+               </div>
+               </div>`
 
 
 
+
+        // Injecte le HTML du formulaire dans le wrapper du formulaire
+        this.$wrapper.innerHTML = lightbox;
+
+        // Ajoute le formulaire rendu au wrapper du formulaire dans le document
+        this.$filterFormWrapper.appendChild(this.$wrapper);
+        console.log("Affichage de l'image dans la lightbox :", url);
+        this.$wrapper.querySelector(".lightbox__close").addEventListener("click", (e) => {
+            e.preventDefault(); // Empêche le comportement par défaut du lien
+            this.closeModal();
+        });
+    }
+    
 
 }
