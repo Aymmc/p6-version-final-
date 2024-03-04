@@ -3,7 +3,7 @@ class photographerCard {
         this.photographer = photographer
         this.media = media
         this.photographerName = photographerName
-        // this.photographer.price = photographerPrice
+        this.photographer.price = photographerPrice
     }
     getHeader() {
         const $wrapper = document.createElement('div');
@@ -103,7 +103,7 @@ class photographerCard {
 
       </div>
       <div class="argent">
-        <p>>/jour </p>
+        <p> >${this.photographer.price}/jour </p>
       </div>
 
 
@@ -114,6 +114,6 @@ class photographerCard {
     
         return $wrapper;
     }
-    
+
     
 }    

@@ -1,12 +1,13 @@
 // Définition de la classe App
 class App {
-    constructor() {
+    constructor(media) {
         // Sélection des éléments DOM nécessaires
         this.$photographersWrapper = document.querySelector('.photographer_section');
         this.photographersApi = new photographerApi('../data/photographers.json');
         this.getMedia = document.querySelector('.divgalerie');
         this.getHeader = document.querySelector('.photograph-header');
         this.GetCompteurLike = document.querySelector('main')
+        this.media = media
         // this.init= init()
     }
     // Fonction asynchrone pour récupérer les photographes
@@ -21,24 +22,32 @@ class App {
     async fetchHeader() {
         return await this.photographersApi.getHeader();
     }
-    urlImages(url) {
+    urlImages(mediaItem, mediaList) {
         let images = document.querySelectorAll(".imagegalerie img");
-        console.log(images)
+        let mediaIndex = mediaList.findIndex(media => media === mediaItem);
+    
         images.forEach((img) => {
             img.addEventListener("click", (e) => {
                 e.preventDefault();
                 if (!img.classList.contains("clicked")) {
-                    console.log(e.target.src)
-                    url = e.target.src;
-                    this.lightbox = new Lightbox(url);
-                    this.lightbox.setUrl(url)
-                    this.lightbox.render(url);
-                    img.classList.add("clicked"); // Ajoute une classe pour indiquer que le like a été cliqué
-
+                    console.log("Valeur de media avant de créer une instance de Lightbox :", mediaItem); 
+                    console.log(e.target.src);
+                    let url = e.target.src; 
+                    let media = mediaItem; 
+                    console.log(mediaList); // Vérifiez le contenu de mediaList ici
+                    this.lightbox = new Lightbox(this.photographer, media, url, mediaIndex, mediaList);
+                    this.lightbox.render();
+                    console.log(media);
+                    img.classList.add("clicked");
                 }
             });
         });
     }
+    
+    
+
+    
+    
     attachCoeurEventListeners() {
         let likes = document.querySelectorAll(".coeur");
         likes.forEach((like) => {
@@ -109,9 +118,10 @@ class App {
                 const photographer = photographers.find(p => p.id === mediaItem.photographerId);
                 const template = new photographerCard(photographer, mediaItem, photographer.name);
                 this.getMedia.appendChild(template.getUserCardMedia());
+                this.urlImages(mediaItem, elementsWithId); // Passer mediaItem à urlImages
             });
             this.attachCoeurEventListeners();
-            this.urlImages();
+            
             this.displayModal();
             this.CompteurLike();
         } else {
