@@ -1,9 +1,10 @@
 class photographerCard {
-    constructor(photographer, media, photographerName , mediaItem) {
+    constructor(photographer, media, photographerName , mediaItem, photographerPrice) {
         this.photographer = photographer
         this.media = media
         this.photographerName = photographerName
         this.mediaItem = mediaItem
+        this.photographerPrice = photographerPrice
     }
     getHeader() {
         const $wrapper = document.createElement('div');
@@ -24,6 +25,7 @@ class photographerCard {
         return $wrapper
     }
     getUserCardDOM() {
+        const photographer = this.photographer
         const $wrapper = document.createElement('div')
         const photographerCard = `
         <article>
@@ -34,7 +36,9 @@ class photographerCard {
             <h3> ${this.photographer.city} , ${this.photographer.country} </h3>
             <p>
             <span>${this.photographer.tagline}</span>
-            <span>${this.photographer.price}/jour</span> 
+            </p>
+            <p>
+            <span>${this.photographer.price}€/jour</span> 
             </p>
         </article>
         `
@@ -90,15 +94,14 @@ class photographerCard {
         return $wrapper;
     }
     getCompteurLike() {
-        console.log(app.totalLikes)
         const $wrapper = document.createElement('div');
         $wrapper.classList.add('compteurargent')
         const compteur = `
         <div class="compteur">
-        ${app.totalLikes}
+        ${app.totalLikes}<img class="coeur" src="../../assets/coeurnoir.svg" alt="image coeur noir" tabindex="0">
       </div>
       <div class="argent">
-        <p>/jour </p>
+        <p> ${app.price}€/jour </p>
       </div>
         `
         $wrapper.innerHTML = compteur;

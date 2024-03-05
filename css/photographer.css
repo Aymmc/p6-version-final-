@@ -75,12 +75,28 @@
     font-weight: normal;
     text-align: center;
 }
+.filtre {
+    margin-bottom: 58px;
+}
 
-form {
+.filter label {
     display: flex;
+    gap: 25px;
     width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+   
+}
+.filter select {
+    border: none;
+    color: white;
+    appearance: none;
+    font-size: 18px;
+    padding: 20px;
+    border-bottom: 2px solid white;
+    /* background: url(../assets/flecheselect.svg) 96% / 15% no-repeat ;  */
+}
+#filter-select option {
+    color: white
 }
 
 form label {
@@ -246,11 +262,23 @@ line-height: normal;
     height: 100%;
     object-fit: cover;
 }
+.compteur{
+    display: flex;
+}
 .compteurargent{
     width: 376px;
     background: #DB8876;
     position: fixed;
-    top: 94%;
+    top: 91%;
     height: 89px;
     right: 7%;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-family: "DM Sans";
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }

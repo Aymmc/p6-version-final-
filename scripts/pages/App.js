@@ -112,6 +112,9 @@ class App {
                 // Création de l'en-tête du photographe et ajout au DOM
                 const Header = new photographerCard(photographer);
                 this.getHeader.appendChild(Header.getHeader());
+                let price = 0 
+                price = photographer.price
+                this.price = price 
             } else {
                 console.log("Aucun photographe trouvé avec l'ID spécifié.");
             }
