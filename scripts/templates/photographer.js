@@ -1,9 +1,9 @@
 class photographerCard {
-    constructor(photographer, media, photographerName, photographerPrice) {
+    constructor(photographer, media, photographerName , mediaItem) {
         this.photographer = photographer
         this.media = media
         this.photographerName = photographerName
-        this.photographer.price = photographerPrice
+        this.mediaItem = mediaItem
     }
     getHeader() {
         const $wrapper = document.createElement('div');
@@ -25,7 +25,6 @@ class photographerCard {
     }
     getUserCardDOM() {
         const $wrapper = document.createElement('div')
-
         const photographerCard = `
         <article>
         <a href="photographer.html?id=${this.photographer.id}">
@@ -39,15 +38,12 @@ class photographerCard {
             </p>
         </article>
         `
-
         $wrapper.innerHTML = photographerCard
         return $wrapper
     }
     getUserCardMedia() {
         const $wrapper = document.createElement('div');
-    
         let mediaContent;
-    
         if (this.media.video) {
             // Si la clé "video" est présente dans l'objet media, cela signifie qu'il s'agit d'une vidéo
             mediaContent = `
@@ -89,29 +85,23 @@ class photographerCard {
                 </div>
             </article>
             `;
-        }
-        
+        }  
         $wrapper.innerHTML = mediaContent;
-    
         return $wrapper;
     }
-    GetCompteurLike() {
+    getCompteurLike(elementsWithId, mediaItem) {
+        console.log(mediaItem)
         const $wrapper = document.createElement('div');
+        $wrapper.classList.add('compteurargent')
         const compteur = `
-      
         <div class="compteur">
-
+        ${this.media.likes}
       </div>
       <div class="argent">
-        <p> >${this.photographer.price}/jour </p>
+        <p>/jour </p>
       </div>
-
-
         `
-
-
         $wrapper.innerHTML = compteur;
-    
         return $wrapper;
     }
 

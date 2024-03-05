@@ -84,3 +84,21 @@ font-style: normal;
 font-weight: 400;
 line-height: normal;
 }
+select{
+    width: 170px;
+    height: 69px;
+    background-color:#901C1C;
+}
+.filter form {
+    display: flex;
+    align-items: center;
+}
+.filter p {
+    color: #000;
+
+font-family: "DM Sans";
+font-size: 18px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}

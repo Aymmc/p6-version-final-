@@ -13,39 +13,35 @@ class SorterForm {
         this.$filterFormWrapper = document.querySelector('.filtre');
         // Sélection de l'élément avec l'identifiant "photos_section" pour le wrapper des médias
         this.$photosWrapper = document.querySelector('.divgalerie');
-
         // Initialisation d'une instance de ProxyRatingSorter pour gérer le tri des médias
         this.ProxyRatingSorter = new ProxyRatingSorter()
     }
-
     // Méthode asynchrone pour trier les médias
     async sorterMedias(sorter) {
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
         // Efface le contenu actuel du wrapper des médias
         this.clearPhotographWrapper()
-
         // Vérifie si un type de tri est spécifié
         if (!!sorter) {
             // Effectue le tri en utilisant l'instance de ProxyRatingSorter
             const photographerMedia = this.media.filter(
                 (item) => item.photographerId === parseInt(id)
-              );
-              let photographeDate = []
-              for (let i = 0; i < photographerMedia.length; i++){
+            );
+            let photographeDate = []
+            for (let i = 0; i < photographerMedia.length; i++) {
                 photographeDate.push(photographerMedia[i].date)
-                
-            }console.log(photographeDate)
-              console.log(photographerMedia)
-              // Effectue le tri en utilisant l'instance de ProxyRatingSorter
-              const sortedData = await this.ProxyRatingSorter.sorter(
+
+            } console.log(photographeDate)
+            console.log(photographerMedia)
+            // Effectue le tri en utilisant l'instance de ProxyRatingSorter
+            const sortedData = await this.ProxyRatingSorter.sorter(
                 photographerMedia,
                 sorter
-              );
+            );
             const sortedMedias = sortedData.data;
-                console.log(sortedData.data.date)
+            console.log(sortedData.data.date)
             if (sortedMedias.length > 0) {
-
                 // Pour chaque média trié, crée une carte de média et l'ajoute au wrapper des médias
                 sortedMedias.forEach(mediaItem => {
                     const photographer = this.photographers.find(p => p.id === mediaItem.photographerId);
@@ -61,7 +57,6 @@ class SorterForm {
             });
         }
     }
-
     // Méthode pour gérer le changement de tri dans le formulaire
     onChangeSorter() {
         // Ajoute un écouteur d'événements "change" au formulaire
@@ -74,13 +69,11 @@ class SorterForm {
                 this.sorterMedias(sorter);
             });
     }
-
     // Méthode pour effacer le contenu du wrapper des médias
     clearPhotographWrapper() {
         // Remplace le contenu HTML du wrapper des médias par une chaîne vide
         this.$photosWrapper.innerHTML = "";
     }
-
     // Méthode pour rendre le formulaire de tri
     render() {
         // Définit le HTML du formulaire de tri
@@ -94,12 +87,10 @@ class SorterForm {
                 </select>
             </form>
         `;
-
         // Injecte le HTML du formulaire dans le wrapper du formulaire
         this.$wrapper.innerHTML = sorterForm;
         // Associe la méthode onChangeSorter à l'événement de changement du formulaire
         this.onChangeSorter();
-
         // Ajoute le formulaire rendu au wrapper du formulaire dans le document
         this.$filterFormWrapper.appendChild(this.$wrapper);
     }

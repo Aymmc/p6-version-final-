@@ -4,7 +4,6 @@ class ProxyRatingSorter {
         // Initialisation d'un tableau vide pour le cache
         this.cache = []
     }
-
     // Méthode asynchrone pour trier les medias avec mise en cache
     async sorter(media, orderBy) {
         // Recherche d'un résultat déjà mis en cache pour cet orderBy
@@ -16,7 +15,6 @@ class ProxyRatingSorter {
             // Retourne le résultat trouvé dans le cache
             return cachedResult
         }
-
         // Si aucune donnée n'est trouvée dans le cache, appelle l'API pour effectuer le tri
         const data = await RatingSorterApi.sorter(media, orderBy)
 
@@ -29,7 +27,6 @@ class ProxyRatingSorter {
 class RatingSorterApi {
     static async sorter(data, orderBy) {
         console.log("Get from compute")
-
         if (orderBy === 'date') {
             return new Promise((resolve) => {
                 setTimeout(() => {
@@ -38,9 +35,7 @@ class RatingSorterApi {
                         data: Array.from(data).sort(
                             (a, b) => new Date(a.date) - new Date(b.date))
                     }
-
                     resolve(result)
-
                 }, 1000)
             })
         } else if (orderBy === 'popularity') {
@@ -50,23 +45,22 @@ class RatingSorterApi {
                         key: orderBy,
                         data: Array.from(data).sort((a, b) => b.likes - a.likes)
                     }
-
                     resolve(result)
                 }, 1000)
             })
-        }   else if (orderBy === 'Titre') {
-                return new Promise((resolve) => {
-                    setTimeout(() => {
-                        const result = {
-                            key: orderBy,
-                            data: Array.from(data).sort(function (a, b) {
-                                return a.title.localeCompare(b.title);}
-                              )
+        } else if (orderBy === 'Titre') {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const result = {
+                        key: orderBy,
+                        data: Array.from(data).sort(function (a, b) {
+                            return a.title.localeCompare(b.title);
                         }
-    
-                        resolve(result)
-                    }, 1000)
-                })
+                        )
+                    }
+                    resolve(result)
+                }, 1000)
+            })
         } else {
             throw 'unknow orderBy type'
         }
