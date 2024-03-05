@@ -89,13 +89,13 @@ class photographerCard {
         $wrapper.innerHTML = mediaContent;
         return $wrapper;
     }
-    getCompteurLike(elementsWithId, mediaItem) {
-        console.log(mediaItem)
+    getCompteurLike() {
+        console.log(app.totalLikes)
         const $wrapper = document.createElement('div');
         $wrapper.classList.add('compteurargent')
         const compteur = `
         <div class="compteur">
-        ${this.media.likes}
+        ${app.totalLikes}
       </div>
       <div class="argent">
         <p>/jour </p>

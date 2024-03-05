@@ -8,6 +8,7 @@ class App {
         this.getHeader = document.querySelector('.photograph-header'); // Sélection de l'en-tête du photographe
         this.getCompteurLike = document.querySelector('main'); // Sélection de la zone pour afficher le compteur de likes
         this.media = media; // Stockage des médias
+        this.totalLikes = 0;
         // this.init= init()
     }
     // Fonction asynchrone pour récupérer les photographes
@@ -18,10 +19,6 @@ class App {
     async fetchMedias() {
         return await this.photographersApi.getMedias();
     }
-    // Fonction asynchrone pour récupérer l'en-tête
-    // async fetchHeader() {
-    //     return await this.photographersApi.getHeader();
-    // }
     // Fonction pour gérer les événements de clic sur les images
     urlImages(mediaItem, mediaList) {
         let images = document.querySelectorAll(".imagegalerie img"); // Sélection de toutes les images de la galerie
@@ -40,13 +37,26 @@ class App {
             });
         });
     }
-    compteurlike(mediaItem, media){
-        const Template = new photographerCard(mediaItem, media);
-        this.getCompteurLike.appendChild(Template.getCompteurLike(mediaItem, media));
+
+    updateTotalLikes() {
+        const Template = new photographerCard();
+        this.getCompteurLike.appendChild(Template.getCompteurLike());
+        const likeElements = document.querySelectorAll(".nombrelike"); // Sélectionne tous les éléments affichant les likes
+        let totalLikes = 0;
+
+        likeElements.forEach(likeElement => {
+            totalLikes += parseInt(likeElement.textContent); // Additionne le nombre de likes de chaque élément
+        });
+
+        this.totalLikes = totalLikes; // Met à jour le total des likes dans l'instance de la classe App
+        // Affichez le total des likes où vous le souhaitez dans votre application
+        console.log("Total des likes:", this.totalLikes);
     }
+
     // Fonction pour attacher les gestionnaires d'événements de clic sur le bouton de like
     attachCoeurEventListeners() {
         let likes = document.querySelectorAll(".coeur"); // Sélection de tous les boutons de like
+
         likes.forEach((like) => {
             like.addEventListener("click", (e) => {
                 if (!like.classList.contains("clicked")) { // Vérifier si le like n'a pas déjà été cliqué
@@ -54,8 +64,9 @@ class App {
                     let likeNumberValue = parseInt(likeNumber.textContent.trim().replace(/['"]+/g, '')); // Récupération de la valeur actuelle des likes
                     let newLikeValue = likeNumberValue + 1; // Incrémentation du nombre de likes
                     likeNumber.textContent = newLikeValue; // Mise à jour de l'affichage du nombre de likes
-                    console.log(newLikeValue)
+                    console.log(newLikeValue);
                     like.classList.add("clicked"); // Ajout d'une classe pour indiquer que le like a été cliqué
+                    this.updateTotalLikes(); // Met à jour le total des likes à chaque clic de like
                 }
             });
         });
@@ -108,7 +119,7 @@ class App {
         // ------------------------------------Media-------------------------------
         // Si des médias sont associés à l'ID
         if (elementsWithId.length > 0) {
-           
+
             // Création des cartes médias pour chaque média et ajout au DOM
             elementsWithId.forEach(mediaItem => {
                 const photographer = photographers.find(p => p.id === mediaItem.photographerId);
@@ -116,18 +127,19 @@ class App {
                 this.getMedia.appendChild(template.getUserCardMedia());
                 this.urlImages(mediaItem, elementsWithId); // Passer mediaItem à urlImages
                 // console.log(elementsWithId)
-                this.compteurlike(elementsWithId, mediaItem, media);
-                
+
+
             });
-            
+            this.updateTotalLikes();
             this.attachCoeurEventListeners(); // Attacher les gestionnaires d'événements pour les likes
             this.displayModal(); // Afficher la modal de contact
-            
+
 
 
         } else {
             console.log("Aucun média trouvé pour l'ID spécifié.");
         }
+
         this.SorterForm = new SorterForm(photographers, media); // Instanciation du formulaire de tri
         this.SorterForm.render(); // Affichage du formulaire de tri
     }
