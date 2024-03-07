@@ -1,8 +1,10 @@
 @import url("photographer.css");
+
 * {
     margin: 0;
     padding: 0;
 }
+
 body {
     font-family: "DM Sans", sans-serif;
     margin: 0;
@@ -47,25 +49,26 @@ h1 {
 .photographer_section article h2 {
     color: #D3573C;
 
-text-align: center;
-font-family: "DM Sans";
-font-size: 36px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    text-align: center;
+    font-family: "DM Sans";
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .photographer_section article h3 {
-color: #901C1C;
+    color: #901C1C;
 
-text-align: center;
-font-family: "DM Sans";
-font-size: 13px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-margin-bottom: 3px;
+    text-align: center;
+    font-family: "DM Sans";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-bottom: 3px;
 }
+
 .photographer_section article img {
     height: 200px;
     width: 200px;
@@ -76,29 +79,39 @@ margin-bottom: 3px;
 
 .photographer_section article p {
     color: #000;
-margin-bottom: 3px;
-text-align: center;
-font-family: "DM Sans";
-font-size: 10px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
+    margin-bottom: 3px;
+    text-align: center;
+    font-family: "DM Sans";
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
-select{
+
+select {
     width: 170px;
     height: 69px;
-    background-color:#901C1C;
+    background-color: #901C1C;
 }
+
 .filter form {
     display: flex;
     align-items: center;
 }
+
 .filter p {
     color: #000;
 
-font-family: "DM Sans";
-font-size: 18px;
-font-style: normal;
-font-weight: 700;
-line-height: normal;
+    font-family: "DM Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
 }
+.none {
+    display: none!important;
+}
+.no-scroll {
+    overflow: hidden;
+ }
+ 

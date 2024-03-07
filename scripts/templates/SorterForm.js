@@ -48,7 +48,11 @@ class SorterForm {
                     const template = new photographerCard(photographer, mediaItem, photographer.name);
                     this.$photosWrapper.appendChild(template.getUserCardMedia());
                 });
+                app.attachCoeurEventListeners();
+                app.urlImages(sortedMedias[0], sortedMedias);
+                
             }
+            
         } else {
             // Si aucun type de tri n'est spécifié, affiche les médias dans l'ordre original
             this.media.forEach(media => {
@@ -57,6 +61,7 @@ class SorterForm {
             });
         }
     }
+
     // Méthode pour gérer le changement de tri dans le formulaire
     onChangeSorter() {
         // Ajoute un écouteur d'événements "change" au formulaire
@@ -67,8 +72,13 @@ class SorterForm {
                 const sorter = e.target.value;
                 // Trie les médias en fonction du type de tri sélectionné
                 this.sorterMedias(sorter);
+                
             });
     }
+    // Méthode pour attacher les gestionnaires d'événements de clic sur les images après le tri
+
+
+
     // Méthode pour effacer le contenu du wrapper des médias
     clearPhotographWrapper() {
         // Remplace le contenu HTML du wrapper des médias par une chaîne vide
@@ -93,5 +103,6 @@ class SorterForm {
         this.onChangeSorter();
         // Ajoute le formulaire rendu au wrapper du formulaire dans le document
         this.$filterFormWrapper.appendChild(this.$wrapper);
+
     }
 }

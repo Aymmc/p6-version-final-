@@ -1,5 +1,5 @@
 class photographerCard {
-    constructor(photographer, media, photographerName , mediaItem, photographerPrice) {
+    constructor(photographer, media, photographerName, mediaItem, photographerPrice) {
         this.photographer = photographer
         this.media = media
         this.photographerName = photographerName
@@ -51,11 +51,11 @@ class photographerCard {
         if (this.media.video) {
             // Si la clé "video" est présente dans l'objet media, cela signifie qu'il s'agit d'une vidéo
             mediaContent = `
-            <article>
+            <article alt="${this.media.title}">
                 <div>
-                    <a href="../assets/sample_photo/${this.photographerName}/${this.media.video}">
+                    <a alt="${this.media.title}" href="../assets/sample_photo/${this.photographerName}/${this.media.video}">
                         <div class="videogalerie">
-                            <video class="video" controls>
+                            <video alt="${this.media.title}" class="video" controls>
                                 <source src="../assets/sample_photo/${this.photographerName}/${this.media.video}" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -64,7 +64,7 @@ class photographerCard {
                     <div class="titregalerie">
                         <h4>${this.media.title}</h4>
                         <div class="divcoeur">
-                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt="image coeur" tabindex="0">
+                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt="Cliquer pour ajouté un like" tabindex="0">
                         </div>
                     </div>
                 </div>
@@ -73,23 +73,23 @@ class photographerCard {
         } else {
             // Si la clé "video" n'est pas présente, cela signifie qu'il s'agit d'une image (par défaut)
             mediaContent = `
-            <article>
+            <article alt="${this.media.title}">
                 <div>
-                    <a href="../assets/sample_photo/${this.photographerName}/${this.media.image}">
+                    <a arial-label="cliquez ici pour ouvrir la lightbox" alt="${this.media.title}" href="../assets/sample_photo/${this.photographerName}/${this.media.image}">
                         <div class="imagegalerie">
-                            <img class="imggalerie" src="../assets/sample_photo/${this.photographerName}/${this.media.image}">
+                            <img class="imggalerie" alt="${this.media.title}" src="../assets/sample_photo/${this.photographerName}/${this.media.image}">
                         </div>
                     </a>
                     <div class="titregalerie">
                         <h4>${this.media.title}</h4>
                         <div class="divcoeur">
-                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt="image coeur" tabindex="0">
+                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt="Cliquer pour ajouté un like" tabindex="0">
                         </div>
                     </div>
                 </div>
             </article>
             `;
-        }  
+        }
         $wrapper.innerHTML = mediaContent;
         return $wrapper;
     }
@@ -97,16 +97,13 @@ class photographerCard {
         const $wrapper = document.createElement('div');
         $wrapper.classList.add('compteurargent')
         const compteur = `
-        <div class="compteur">
-        ${app.totalLikes}<img class="coeur" src="../../assets/coeurnoir.svg" alt="image coeur noir" tabindex="0">
+        <div class="compteur"> ${app.totalLikes}<img class="coeur" src="../../assets/coeurnoir.svg" alt="image coeur noir" tabindex="0">
       </div>
       <div class="argent">
-        <p> ${app.price}€/jour </p>
+        <p>${app.price}€/jour </p>
       </div>
         `
         $wrapper.innerHTML = compteur;
         return $wrapper;
     }
-
-    
 }    
