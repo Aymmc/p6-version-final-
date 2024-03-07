@@ -72,19 +72,19 @@ class App {
     // Fonction pour afficher la modal de contact
     displayModal() {
         const contactButton = document.querySelector(".contact_button"); // Sélection du bouton de contact
-        
+
         // Vérifier si le bouton de contact existe avant d'ajouter un gestionnaire d'événements
         if (contactButton) {
             contactButton.addEventListener("click", () => {
                 // Création d'une instance de la classe Modal
                 const modal = new Modal();
-                
+
                 // Rendre la fenêtre modale
                 modal.render();
-                
+
                 // Afficher la fenêtre modale
                 modal.$wrapper.style.display = "block";
-                
+
                 // Empêcher le défilement de la page derrière la fenêtre modale
                 modal.body.classList.add('no-scroll');
             });
@@ -92,7 +92,7 @@ class App {
             console.log("Le bouton de contact n'a pas été trouvé.");
         }
     }
-    
+
     // Fonction pour afficher le compteur de likes
     // Fonction principale asynchrone
     async main() {
@@ -105,6 +105,8 @@ class App {
         const photographers = await this.fetchPhotographers();
         // Filtrage des médias par ID
         const elementsWithId = media.filter(mediaItem => mediaItem.photographerId === parseInt(id));
+         // Calculer le total des likes uniquement pour les médias affichés
+        this.totalLikes = elementsWithId.reduce((acc, curr) => acc + curr.likes, -1);
         //-------------------------------------------- INDEX --------------------------------------------------------
         if (window.location.pathname === '/') {
             // Création des cartes pour chaque photographe et ajout au DOM
@@ -138,19 +140,21 @@ class App {
                 const photographer = photographers.find(p => p.id === mediaItem.photographerId);
                 const template = new photographerCard(photographer, mediaItem, photographer.name);
                 this.getMedia.appendChild(template.getUserCardMedia());
+                
                 this.urlImages(mediaItem, elementsWithId); // Passer mediaItem à urlImages
                 // console.log(elementsWithId)
             });
             this.Modal = new Modal(); // Instanciation de la modal de contact
             this.Modal.render(); // Affichage de la modal
-            this.updateTotalLikes();
-            this.attachCoeurEventListeners(); // Attacher les gestionnaires d'événements pour les likes
-            this.displayModal(); // Afficher la modal de contact
+
         } else {
             console.log("Aucun média trouvé pour l'ID spécifié.");
         }
         this.SorterForm = new SorterForm(photographers, media, app); // Instanciation du formulaire de tri
-        this.SorterForm.render(); // Affichage du formulaire de tri
+        this.SorterForm.render(); // Affichage du formulaire de tri 
+        this.updateTotalLikes();
+        this.attachCoeurEventListeners(); // Attacher les gestionnaires d'événements pour les likes
+        this.displayModal(); // Afficher la modal de contact
     }
 }
 // Création d'une instance de la classe App et exécution de la fonction principale
