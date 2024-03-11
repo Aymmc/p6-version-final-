@@ -24,12 +24,16 @@ class App {
     urlImages(mediaItem, mediaList) {
         let images = document.querySelectorAll(".imagegalerie img"); // Sélection de toutes les images de la galerie
         let mediaIndex = mediaList.findIndex(media => media === mediaItem); // Index du média dans la liste
+        console.log('images')
         // Parcourir toutes les images et ajouter un gestionnaire d'événements de clic
         images.forEach((img) => {
+
             img.addEventListener("click", (e) => {
+
                 e.preventDefault(); // Empêcher le comportement par défaut du clic
                 if (!img.classList.contains("clicked")) { // Vérifier si l'image n'a pas déjà été cliquée
                     let url = e.target.src; // URL de l'image cliquée
+
                     let media = mediaItem; // Média associé à l'image
                     this.lightbox = new Lightbox(this.photographer, media, url, mediaIndex, mediaList); // Instanciation de la Lightbox
                     this.lightbox.render(); // Affichage de la Lightbox
@@ -42,7 +46,7 @@ class App {
         const Template = new photographerCard();
         this.Main.appendChild(Template.getCompteurLike());
         const likeElements = document.querySelectorAll(".nombrelike"); // Sélectionne tous les éléments affichant les likes
-        let totalLikes = 0;
+        let totalLikes = 1;
 
         likeElements.forEach(likeElement => {
             totalLikes += parseInt(likeElement.textContent); // Additionne le nombre de likes de chaque élément
@@ -71,22 +75,24 @@ class App {
     }
     // Fonction pour afficher la modal de contact
     displayModal() {
-        const contactButton = document.querySelector(".contact_button"); // Sélection du bouton de contact
-
+        const contactButton = document.querySelector(".contact_button"); // Sélection du bouton de contact  
         // Vérifier si le bouton de contact existe avant d'ajouter un gestionnaire d'événements
         if (contactButton) {
             contactButton.addEventListener("click", () => {
                 // Création d'une instance de la classe Modal
                 const modal = new Modal();
-
                 // Rendre la fenêtre modale
                 modal.render();
-
+                const modalcontent = document.querySelector('.contact_modal')
+                const close = document.querySelector('.fermermodale')
                 // Afficher la fenêtre modale
                 modal.$wrapper.style.display = "block";
-
+                this.Main.attr('aria-hidden', 'true')
+                modalcontent.attr('aria-hidden', 'false')
                 // Empêcher le défilement de la page derrière la fenêtre modale
                 modal.body.classList.add('no-scroll');
+                close.focus()
+
             });
         } else {
             console.log("Le bouton de contact n'a pas été trouvé.");
@@ -105,14 +111,15 @@ class App {
         const photographers = await this.fetchPhotographers();
         // Filtrage des médias par ID
         const elementsWithId = media.filter(mediaItem => mediaItem.photographerId === parseInt(id));
-         // Calculer le total des likes uniquement pour les médias affichés
-        this.totalLikes = elementsWithId.reduce((acc, curr) => acc + curr.likes, -1);
+        // Calculer le total des likes uniquement pour les médias affichés
+
         //-------------------------------------------- INDEX --------------------------------------------------------
         if (window.location.pathname === '/') {
             // Création des cartes pour chaque photographe et ajout au DOM
             photographers.forEach((photographer) => {
                 const Template = new photographerCard(photographer);
                 this.$photographersWrapper.appendChild(Template.getUserCardDOM());
+
             });
         }
         // ------------------------------------Photographer------------------------------------------------------
@@ -127,6 +134,7 @@ class App {
                 this.getHeader.appendChild(Header.getHeader());
                 let price = 0
                 price = photographer.price
+                this.totalLikes = elementsWithId.reduce((acc, curr) => acc + curr.likes, 0);
                 this.price = price
             } else {
                 console.log("Aucun photographe trouvé avec l'ID spécifié.");
@@ -140,7 +148,7 @@ class App {
                 const photographer = photographers.find(p => p.id === mediaItem.photographerId);
                 const template = new photographerCard(photographer, mediaItem, photographer.name);
                 this.getMedia.appendChild(template.getUserCardMedia());
-                
+
                 this.urlImages(mediaItem, elementsWithId); // Passer mediaItem à urlImages
                 // console.log(elementsWithId)
             });

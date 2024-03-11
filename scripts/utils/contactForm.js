@@ -8,10 +8,14 @@ class Modal {
         this.$filterFormWrapper = document.querySelector('body');
         console.log('test')
         this.body = document.querySelector('body')
+        this.modalcontent = document.querySelector('.contact_modal')
+        this.main = document.querySelector('main')
     }
     closeModal() {
         this.$wrapper.style.display = 'none'
-        this.body.classList.add('no-scroll')
+        this.body.classList.remove('no-scroll')
+        this.modalcontent.attr('aria-hidden', 'true')
+        this.main.attr('aria-hidden', 'false')
     }
     isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
@@ -19,7 +23,7 @@ class Modal {
     render() {
         const Modale = `
         <form name="reserve" action="index.html" method="get" id="form">
-            <div id="contact_modal">
+            <div id="contact_modal" aria-hidden=true role="dialog" aria-describedby="modalTitle" >
                 <div role="dialog" class="modal" aria-hidden=”true” aria-describedby="contact">
                     <div class="headermodal">
                         <div>
