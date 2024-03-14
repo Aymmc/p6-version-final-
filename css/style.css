@@ -94,7 +94,8 @@ select {
     background-color: #901C1C;
 }
 
-.filter form {
+form {
+    position: relative;
     display: flex;
     align-items: center;
 }
@@ -114,4 +115,10 @@ select {
 .no-scroll {
     overflow: hidden;
  }
- 
+.filter img{
+    position: absolute;
+    left: 18%;
+  }
+  .arrowrotate{
+    transform: rotate(180deg)
+  }

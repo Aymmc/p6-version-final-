@@ -1,11 +1,12 @@
 // Définition de la classe SorterForm
 class SorterForm {
     // Constructeur de la classe prenant les paramètres photographers et media
-    constructor(photographers, media) {
+    constructor(photographers, media, appInstance) {
         // Assignation des paramètres photographers et media à des propriétés de l'instance
         this.photographers = photographers;
         this.media = media;
-
+        this.arrow = document.querySelector('.arrow')     
+        this.appInstance = appInstance; // Ajoutez une référence à l'instance de App
         // Création d'un élément div pour le wrapper du formulaire de tri
         this.$wrapper = document.createElement('div');
         // Sélection de l'élément avec la classe "filter-wrapper" pour le wrapper du formulaire de tri
@@ -18,6 +19,8 @@ class SorterForm {
     }
     // Méthode asynchrone pour trier les médias
     async sorterMedias(sorter) {
+    
+        this.appInstance.updateTotalLikes(); // Met à jour l'affichage des likes
         const urlParams = new URLSearchParams(window.location.search);
         const id = urlParams.get('id');
         // Efface le contenu actuel du wrapper des médias
@@ -32,15 +35,14 @@ class SorterForm {
             for (let i = 0; i < photographerMedia.length; i++) {
                 photographeDate.push(photographerMedia[i].date)
 
-            } console.log(photographeDate)
-            console.log(photographerMedia)
+            } 
             // Effectue le tri en utilisant l'instance de ProxyRatingSorter
             const sortedData = await this.ProxyRatingSorter.sorter(
                 photographerMedia,
                 sorter
             );
             const sortedMedias = sortedData.data;
-            console.log(sortedData.data.date)
+
             if (sortedMedias.length > 0) {
                 // Pour chaque média trié, crée une carte de média et l'ajoute au wrapper des médias
                 sortedMedias.forEach(mediaItem => {
@@ -48,6 +50,7 @@ class SorterForm {
                     const template = new photographerCard(photographer, mediaItem, photographer.name);
                     this.$photosWrapper.appendChild(template.getUserCardMedia());
                 });
+            
                 app.attachCoeurEventListeners();
                 app.urlImages(sortedMedias[0], sortedMedias);
                 
@@ -58,6 +61,7 @@ class SorterForm {
             this.media.forEach(media => {
                 const template = new photographerCard(media);
                 this.$photosWrapper.appendChild(template.getUserCardMedia());
+                console.log('else')
             });
         }
     }
@@ -72,6 +76,7 @@ class SorterForm {
                 const sorter = e.target.value;
                 // Trie les médias en fonction du type de tri sélectionné
                 this.sorterMedias(sorter);
+                console.log('test')
                 
             });
     }
@@ -90,11 +95,14 @@ class SorterForm {
         const sorterForm = ` 
             <form class="filter" action="#" method="POST">
                 <label for="filter-select"><p>Trier par</p>
+                <img class="arrow"src="../assets/flecheselect.svg" >
                 <select name="filter-select" id="filter-select">
-                    <option value="popularity" id="pop">Popularité</option>
-                    <option value="date" id="date">Date</option>
-                    <option value="Titre" id="title">Titre</option>
+                
+                    <option class="option" value="popularity" id="pop">Popularité</option>
+                    <option class="option" value="date" id="date">Date</option>
+                    <option class="option" value="Titre" id="title">Titre</option>
                 </select>
+               
             </form>
         `;
         // Injecte le HTML du formulaire dans le wrapper du formulaire
@@ -106,3 +114,13 @@ class SorterForm {
 
     }
 }
+{/* <div class="filter">
+    <label for="filter-select">Trier par</label>
+    <div id="filter-select">
+        <ul>
+            <li value="popularity" id="pop">Popularité</li>
+            <li value="date" id="date">Date</li>
+            <li value="Titre" id="title">Titre</li>
+        </ul>
+    </div>
+</div> */}

@@ -9,7 +9,6 @@ class App {
         this.Main = document.querySelector('main'); // Sélection de la zone pour afficher le compteur de likes
         this.body = document.querySelector('body');
         this.media = media; // Stockage des médias
-        this.totalLikes = 0
         // this.init= init()
     }
     // Fonction asynchrone pour récupérer les photographes
@@ -22,39 +21,37 @@ class App {
     }
     // Fonction pour gérer les événements de clic sur les images
     urlImages(mediaItem, mediaList) {
-        let images = document.querySelectorAll(".imagegalerie img"); // Sélection de toutes les images de la galerie
         let mediaIndex = mediaList.findIndex(media => media === mediaItem); // Index du média dans la liste
-        console.log('images')
-        // Parcourir toutes les images et ajouter un gestionnaire d'événements de clic
-        images.forEach((img) => {
-
-            img.addEventListener("click", (e) => {
-
+        let elements = document.querySelectorAll(".imagegalerie img, .videogalerie video"); // Sélection de toutes les images et vidéos de la galerie
+        
+        elements.forEach((element) => {
+            element.addEventListener("click", (e) => {
                 e.preventDefault(); // Empêcher le comportement par défaut du clic
-                if (!img.classList.contains("clicked")) { // Vérifier si l'image n'a pas déjà été cliquée
-                    let url = e.target.src; // URL de l'image cliquée
-
-                    let media = mediaItem; // Média associé à l'image
+                if (!element.classList.contains("clicked")) { // Vérifier si l'élément n'a pas déjà été cliqué
+                    let url = element.tagName === 'IMG' ? e.target.src : e.target.currentSrc; // URL de l'élément cliqué
+    
+                    let media = mediaItem; // Média associé à l'élément
                     this.lightbox = new Lightbox(this.photographer, media, url, mediaIndex, mediaList); // Instanciation de la Lightbox
                     this.lightbox.render(); // Affichage de la Lightbox
-                    img.classList.add("clicked"); // Ajout d'une classe pour indiquer que l'image a été cliquée
+                    element.classList.add("clicked"); // Ajout d'une classe pour indiquer que l'élément a été cliqué
                 }
             });
         });
     }
+
+    
+        // Fonction pour enregistrer le nombre initial de likes
     updateTotalLikes() {
         const Template = new photographerCard();
         this.Main.appendChild(Template.getCompteurLike());
         const likeElements = document.querySelectorAll(".nombrelike"); // Sélectionne tous les éléments affichant les likes
-        let totalLikes = 1;
-
+        let totalLikes = 0;
         likeElements.forEach(likeElement => {
             totalLikes += parseInt(likeElement.textContent); // Additionne le nombre de likes de chaque élément
         });
         this.totalLikes = totalLikes; // Met à jour le total des likes dans l'instance de la classe App
         // Affichez le total des likes dans la console
         console.log("Total des likes:", this.totalLikes);
-        console.log(this.totalLikes)
     }
     // Fonction pour attacher les gestionnaires d'événements de clic sur le bouton de like
     attachCoeurEventListeners() {
@@ -66,10 +63,10 @@ class App {
                     let likeNumberValue = parseInt(likeNumber.textContent.trim().replace(/['"]+/g, '')); // Récupération de la valeur actuelle des likes
                     let newLikeValue = likeNumberValue + 1; // Incrémentation du nombre de likes
                     likeNumber.textContent = newLikeValue; // Mise à jour de l'affichage du nombre de likes
-                    console.log(newLikeValue);
+                    console.log(this.updateTotalLikes());
                     like.classList.add("clicked"); // Ajout d'une classe pour indiquer que le like a été cliqué
-                    this.updateTotalLikes(); // Met à jour le total des likes à chaque clic de like
-                }
+                    this.updateTotalLikes(); // Met à jour le total des likes à chaque clic de like  
+                }   
             });
         });
     }
@@ -87,8 +84,9 @@ class App {
                 const close = document.querySelector('.fermermodale')
                 // Afficher la fenêtre modale
                 modal.$wrapper.style.display = "block";
-                this.Main.attr('aria-hidden', 'true')
-                modalcontent.attr('aria-hidden', 'false')
+    
+                this.Main.classList.add('none')
+
                 // Empêcher le défilement de la page derrière la fenêtre modale
                 modal.body.classList.add('no-scroll');
                 close.focus()
@@ -98,7 +96,6 @@ class App {
             console.log("Le bouton de contact n'a pas été trouvé.");
         }
     }
-
     // Fonction pour afficher le compteur de likes
     // Fonction principale asynchrone
     async main() {
@@ -119,7 +116,6 @@ class App {
             photographers.forEach((photographer) => {
                 const Template = new photographerCard(photographer);
                 this.$photographersWrapper.appendChild(Template.getUserCardDOM());
-
             });
         }
         // ------------------------------------Photographer------------------------------------------------------
@@ -148,7 +144,6 @@ class App {
                 const photographer = photographers.find(p => p.id === mediaItem.photographerId);
                 const template = new photographerCard(photographer, mediaItem, photographer.name);
                 this.getMedia.appendChild(template.getUserCardMedia());
-
                 this.urlImages(mediaItem, elementsWithId); // Passer mediaItem à urlImages
                 // console.log(elementsWithId)
             });
@@ -160,9 +155,10 @@ class App {
         }
         this.SorterForm = new SorterForm(photographers, media, app); // Instanciation du formulaire de tri
         this.SorterForm.render(); // Affichage du formulaire de tri 
-        this.updateTotalLikes();
-        this.attachCoeurEventListeners(); // Attacher les gestionnaires d'événements pour les likes
+        this.updateTotalLikes()
+        this.attachCoeurEventListeners()
         this.displayModal(); // Afficher la modal de contact
+
     }
 }
 // Création d'une instance de la classe App et exécution de la fonction principale

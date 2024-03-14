@@ -8,8 +8,18 @@ class Lightbox {
         this.$wrapper = document.createElement('div');
         this.$wrapper.classList.add('lightbox');
         this.$filterFormWrapper = document.querySelector('body');
+
     }
-    closeModal(){
+    closeModal() {
+        const removes = document.querySelectorAll('.imggalerie');
+        const removesvideos = document.querySelectorAll('.videogalerie video');
+        removesvideos.forEach(removesvideo => {
+            removesvideo.classList.remove('clicked');
+        });
+        removes.forEach(remove => {
+            remove.classList.remove('clicked');
+        });
+
         this.$filterFormWrapper.removeChild(this.$wrapper);
     }
     setUrl(url) {
@@ -22,20 +32,38 @@ class Lightbox {
         this.mediaIndex = index;
     }
     render() {
-        const lightbox =
-            `
-            <div class="divcontainer">
-               <button class="lightbox__close">Fermer</button>
-               <button class="lightbox__prev">Précédent</button>
-               <button class="lightbox__next">Suivant</button>
-               <div class="lightbox__container">
-                   <img src="${this.url}">
-               </div>
-               <div class="lightbox__name">
-                 <h4>  ${this.media.title} </h4>
-               </div>
-            </div>
+        let mediaContent;
+        console.log(this.url);
+        // console.log(this.updateMedia());
+        if (this.media.video) {
+            // Si c'est une vidéo
+            mediaContent = `
+                <video controls>
+                    <source src="${this.url}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             `;
+        } else {
+            // Si c'est une image
+            mediaContent = `
+                <img src="${this.url}">
+            `;
+        }
+
+        const lightbox = `
+            <div class="divcontainer">
+                <button class="lightbox__close">Fermer</button>
+                <button class="lightbox__prev">Précédent</button>
+                <button class="lightbox__next">Suivant</button>
+                <div class="lightbox__container">
+                    ${mediaContent}
+                </div>
+                <div class="lightbox__name">
+                    <h4>${this.media.title}</h4>
+                </div>
+            </div>
+        `;
+
         this.$wrapper.innerHTML = lightbox;
         this.$filterFormWrapper.appendChild(this.$wrapper);
         this.$wrapper.querySelector(".lightbox__close").addEventListener("click", (e) => {
@@ -48,7 +76,7 @@ class Lightbox {
         });
         this.$wrapper.querySelector(".lightbox__next").addEventListener("click", (e) => {
             e.preventDefault();
-            this.showNextMedia(); 
+            this.showNextMedia();
         });
     }
     showPreviousMedia() {
@@ -65,10 +93,18 @@ class Lightbox {
     }
     updateMedia() {
         this.media = this.mediaList[this.mediaIndex];
-        const urlParts = this.url.split("/"); // Décompose l'URL en parties séparées par "/"
-        const parentPath = urlParts.slice(0, -1).join("/"); // Récupère toutes les parties de l'URL sauf la dernière (le nom du fichier)
-        const newUrl = `${parentPath}/${this.media.image}`; // Construit la nouvelle URL en utilisant le titre du média
-        this.url = newUrl;
+        // Vérifiez si le média est une vidéo
+        if (this.media.video) {
+            const urlParts = this.url.split("/"); // Décompose l'URL en parties séparées par "/"
+            const parentPath = urlParts.slice(0, -1).join("/"); // Récupère toutes les parties de l'URL sauf la dernière (le nom du fichier)
+            this.url = `${parentPath}/${this.media.video}`; // Construit la nouvelle URL en utilisant le nom de la vidéo
+        } else {
+            // Si ce n'est pas une vidéo, c'est une image
+            const urlParts = this.url.split("/"); // Décompose l'URL en parties séparées par "/"
+            const parentPath = urlParts.slice(0, -1).join("/"); // Récupère toutes les parties de l'URL sauf la dernière (le nom du fichier)
+            this.url = `${parentPath}/${this.media.image}`; // Construit la nouvelle URL en utilisant le nom de l'image
+        }
         this.render();
     }
+
 }

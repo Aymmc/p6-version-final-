@@ -5,8 +5,8 @@ class Modal {
             this.$wrapper = document.createElement('div');
         // Sélection de l'élément avec la classe "filter-wrapper" pour le wrapper du formulaire de tri
         this.$wrapper.classList.add('contact_modal');
+        // this.$filterFormWrapper = document.querySelector('.cardsection');
         this.$filterFormWrapper = document.querySelector('body');
-        console.log('test')
         this.body = document.querySelector('body')
         this.modalcontent = document.querySelector('.contact_modal')
         this.main = document.querySelector('main')
@@ -14,8 +14,7 @@ class Modal {
     closeModal() {
         this.$wrapper.style.display = 'none'
         this.body.classList.remove('no-scroll')
-        this.modalcontent.attr('aria-hidden', 'true')
-        this.main.attr('aria-hidden', 'false')
+        this.main.classList.add('block')
     }
     isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
@@ -24,11 +23,13 @@ class Modal {
         const Modale = `
         <form name="reserve" action="index.html" method="get" id="form">
             <div id="contact_modal" aria-hidden=true role="dialog" aria-describedby="modalTitle" >
-                <div role="dialog" class="modal" aria-hidden=”true” aria-describedby="contact">
+                <div role="dialog" class="modal" aria-hidden=true aria-describedby="contact">
                     <div class="headermodal">
                         <div>
                             <h2> Contactez moi</h2>
+                            <button class="fermermodale">
                             <img class="fermermodale" src="assets/icons/close.svg" alt="Fermer Modal" />
+                            </button>
                         </div>
                     </div>
                     <div class="modaltitre">

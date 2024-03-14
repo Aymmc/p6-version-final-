@@ -53,18 +53,18 @@ class photographerCard {
             mediaContent = `
             <article alt="${this.media.title}">
                 <div>
-                    <a alt="${this.media.title}" href="../assets/sample_photo/${this.photographerName}/${this.media.video}">
+                    <a arial-label="cliquez ici pour ouvrir la lightbox" alt="${this.media.title}" href="../assets/sample_photo/${this.photographerName}/${this.media.video}">
                         <div class="videogalerie">
                             <video alt="${this.media.title}" class="video" controls>
                                 <source src="../assets/sample_photo/${this.photographerName}/${this.media.video}" type="video/mp4">
-                                Your browser does not support the video tag.
+                 
                             </video>
                         </div>
                     </a>
                     <div class="titregalerie">
                         <h4>${this.media.title}</h4>
                         <div class="divcoeur">
-                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt="Cliquer pour ajouté un like" tabindex="0">
+                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt=" ${this.media.likes} Likes Cliquer pour ajouté un like" tabindex="0">
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@ class photographerCard {
                     <div class="titregalerie">
                         <h4>${this.media.title}</h4>
                         <div class="divcoeur">
-                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt="Cliquer pour ajouté un like" tabindex="0">
+                            <p class="nombrelike">${this.media.likes}</p><img class="coeur" src="../../assets/coeur.png" alt=" ${this.media.likes} Likes Cliquer pour ajouté un like" tabindex="0">
                         </div>
                     </div>
                 </div>

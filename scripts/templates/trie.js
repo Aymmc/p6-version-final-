@@ -26,7 +26,6 @@ class ProxyRatingSorter {
 }
 class RatingSorterApi {
     static async sorter(data, orderBy) {
-        console.log("Get from compute")
         if (orderBy === 'date') {
             return new Promise((resolve) => {
                 setTimeout(() => {
