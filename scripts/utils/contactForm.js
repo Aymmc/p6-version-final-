@@ -26,14 +26,16 @@ class Modal {
                 <div role="dialog" class="modal" aria-hidden=true aria-describedby="contact">
                     <div class="headermodal">
                         <div>
-                            <h2> Contactez moi</h2>
+                            <h2 tabindex= 300 > Contactez moi</h2>
+                            
                             <button class="fermermodale">
                             <img class="fermermodale" src="assets/icons/close.svg" alt="Fermer Modal" />
                             </button>
                         </div>
+                        <h2 tabindex="101" > ${app.name}</h2>
                     </div>
                     <div class="modaltitre">
-                        <h2></h2>
+                        
                     </div>
                     <div class="formData">
                         <label for="first">Prénom</label><br>
@@ -69,6 +71,7 @@ class Modal {
             const commentaireValue = document.getElementById('commentaire').value.trim();
             if (firstValue.length < 2 || lastValue.length < 2 || !this.isValidEmail(emailValue) || commentaireValue.length < 2) {
                 console.log("Veuillez remplir correctement tous les champs.");
+                console.log(lastValue)
             } else {
                 // Vous pouvez effectuer ici les actions nécessaires après la validation réussie du formulaire
                 console.log("Formulaire valide :", firstValue, lastValue, emailValue, commentaireValue);

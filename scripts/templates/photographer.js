@@ -11,9 +11,9 @@ class photographerCard {
         const header = `
         <div class="cardsection">
         <article> 
-        <h2>${this.photographer.name}</h2>
-        <h3> ${this.photographer.city} , ${this.photographer.country} </h3>
-        <p>${this.photographer.tagline}</p>
+        <h2 tabindex="0">${this.photographer.name}</h2>
+        <h3 tabindex="0"> ${this.photographer.city} , ${this.photographer.country} </h3>
+        <p tabindex="0">${this.photographer.tagline}</p>
         </article>
         <button class="contact_button" >Contactez-moi</button>
         <div class="image ">

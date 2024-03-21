@@ -69,3 +69,7 @@
     margin-right: 50px;
     
 }
+.headermodal button {
+    border: none;
+    background-color: transparent;
+}

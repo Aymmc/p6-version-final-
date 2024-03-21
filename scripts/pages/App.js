@@ -45,13 +45,14 @@ class App {
         const Template = new photographerCard();
         this.Main.appendChild(Template.getCompteurLike());
         const likeElements = document.querySelectorAll(".nombrelike"); // Sélectionne tous les éléments affichant les likes
-        let totalLikes = 0;
+        // let totalLikes = 0;
+            let totalLikes = null;
         likeElements.forEach(likeElement => {
             totalLikes += parseInt(likeElement.textContent); // Additionne le nombre de likes de chaque élément
         });
         this.totalLikes = totalLikes; // Met à jour le total des likes dans l'instance de la classe App
         // Affichez le total des likes dans la console
-        console.log("Total des likes:", this.totalLikes);
+        // console.log("Total des likes:", this.totalLikes);
     }
     // Fonction pour attacher les gestionnaires d'événements de clic sur le bouton de like
     attachCoeurEventListeners() {
@@ -63,7 +64,7 @@ class App {
                     let likeNumberValue = parseInt(likeNumber.textContent.trim().replace(/['"]+/g, '')); // Récupération de la valeur actuelle des likes
                     let newLikeValue = likeNumberValue + 1; // Incrémentation du nombre de likes
                     likeNumber.textContent = newLikeValue; // Mise à jour de l'affichage du nombre de likes
-                    console.log(this.updateTotalLikes());
+                    this.updateTotalLikes(); // Met à jour le total des likes à chaque clic de like  
                     like.classList.add("clicked"); // Ajout d'une classe pour indiquer que le like a été cliqué
                     this.updateTotalLikes(); // Met à jour le total des likes à chaque clic de like  
                 }   
@@ -84,9 +85,7 @@ class App {
                 const close = document.querySelector('.fermermodale')
                 // Afficher la fenêtre modale
                 modal.$wrapper.style.display = "block";
-    
                 this.Main.classList.add('none')
-
                 // Empêcher le défilement de la page derrière la fenêtre modale
                 modal.body.classList.add('no-scroll');
                 close.focus()
@@ -114,8 +113,8 @@ class App {
         if (window.location.pathname === '/') {
             // Création des cartes pour chaque photographe et ajout au DOM
             photographers.forEach((photographer) => {
-                const Template = new photographerCard(photographer);
-                this.$photographersWrapper.appendChild(Template.getUserCardDOM());
+                const Template2 = new photographerCard(photographer);
+                this.$photographersWrapper.appendChild(Template2.getUserCardDOM());
             });
         }
         // ------------------------------------Photographer------------------------------------------------------
@@ -129,6 +128,9 @@ class App {
                 const Header = new photographerCard(photographer);
                 this.getHeader.appendChild(Header.getHeader());
                 let price = 0
+                let name = null 
+                name = photographer.name
+                this.name = name
                 price = photographer.price
                 this.totalLikes = elementsWithId.reduce((acc, curr) => acc + curr.likes, 0);
                 this.price = price
@@ -147,8 +149,7 @@ class App {
                 this.urlImages(mediaItem, elementsWithId); // Passer mediaItem à urlImages
                 // console.log(elementsWithId)
             });
-            this.Modal = new Modal(); // Instanciation de la modal de contact
-            this.Modal.render(); // Affichage de la modal
+   
 
         } else {
             console.log("Aucun média trouvé pour l'ID spécifié.");
@@ -158,7 +159,6 @@ class App {
         this.updateTotalLikes()
         this.attachCoeurEventListeners()
         this.displayModal(); // Afficher la modal de contact
-
     }
 }
 // Création d'une instance de la classe App et exécution de la fonction principale
