@@ -9,7 +9,6 @@ class App {
         this.Main = document.querySelector('main'); // Sélection de la zone pour afficher le compteur de likes
         this.body = document.querySelector('body');
         this.media = media; // Stockage des médias
-        // this.init= init()
     }
     // Fonction asynchrone pour récupérer les photographes
     async fetchPhotographers() {
@@ -29,9 +28,11 @@ class App {
                 e.preventDefault(); // Empêcher le comportement par défaut du clic
                 if (!element.classList.contains("clicked")) { // Vérifier si l'élément n'a pas déjà été cliqué
                     let url = element.tagName === 'IMG' ? e.target.src : e.target.currentSrc; // URL de l'élément cliqué
-    
+                    this.body.setAttribute('tabindex', '-1')
+                    this.Main.setAttribute('tabindex', '-1')
+
                     let media = mediaItem; // Média associé à l'élément
-                    this.lightbox = new Lightbox(this.photographer, media, url, mediaIndex, mediaList); // Instanciation de la Lightbox
+                    this.lightbox = new Lightbox(this.photographersApi, media, url, mediaIndex, mediaList); // Instanciation de la Lightbox
                     this.lightbox.render(); // Affichage de la Lightbox
                     element.classList.add("clicked"); // Ajout d'une classe pour indiquer que l'élément a été cliqué
                 }
@@ -52,7 +53,6 @@ class App {
         });
         this.totalLikes = totalLikes; // Met à jour le total des likes dans l'instance de la classe App
         // Affichez le total des likes dans la console
-        // console.log("Total des likes:", this.totalLikes);
     }
     // Fonction pour attacher les gestionnaires d'événements de clic sur le bouton de like
     attachCoeurEventListeners() {
@@ -159,6 +159,7 @@ class App {
         this.updateTotalLikes()
         this.attachCoeurEventListeners()
         this.displayModal(); // Afficher la modal de contact
+        
     }
 }
 // Création d'une instance de la classe App et exécution de la fonction principale

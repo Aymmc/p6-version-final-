@@ -5,7 +5,6 @@ class Modal {
             this.$wrapper = document.createElement('div');
         // Sélection de l'élément avec la classe "filter-wrapper" pour le wrapper du formulaire de tri
         this.$wrapper.classList.add('contact_modal');
-        // this.$filterFormWrapper = document.querySelector('.cardsection');
         this.$filterFormWrapper = document.querySelector('body');
         this.body = document.querySelector('body')
         this.modalcontent = document.querySelector('.contact_modal')

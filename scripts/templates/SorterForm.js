@@ -114,13 +114,3 @@ class SorterForm {
 
     }
 }
-{/* <div class="filter">
-    <label for="filter-select">Trier par</label>
-    <div id="filter-select">
-        <ul>
-            <li value="popularity" id="pop">Popularité</li>
-            <li value="date" id="date">Date</li>
-            <li value="Titre" id="title">Titre</li>
-        </ul>
-    </div>
-</div> */}

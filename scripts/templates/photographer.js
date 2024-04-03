@@ -75,9 +75,9 @@ class photographerCard {
             mediaContent = `
             <article alt="${this.media.title}">
                 <div>
-                    <a arial-label="cliquez ici pour ouvrir la lightbox" alt="${this.media.title}" href="../assets/sample_photo/${this.photographerName}/${this.media.image}">
+                    <a tabindex=-1 arial-label="cliquez ici pour ouvrir la lightbox" alt="${this.media.title}" href="../assets/sample_photo/${this.photographerName}/${this.media.image}">
                         <div class="imagegalerie">
-                            <img class="imggalerie" alt="${this.media.title}" src="../assets/sample_photo/${this.photographerName}/${this.media.image}">
+                            <img tabindex=0 class="imggalerie" alt="${this.media.title} cliquez ici pour ouvrir la lightbox" src="../assets/sample_photo/${this.photographerName}/${this.media.image}">
                         </div>
                     </a>
                     <div class="titregalerie">
