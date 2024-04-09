@@ -14,6 +14,7 @@ class Lightbox {
         this.$filterFormWrapper = document.querySelector('body'); // Sélectionne l'élément body pour y attacher la boîte de lumière
         this.main = document.querySelector('main') // Sélectionne l'élément main
         this.main.style.display = "none"; // Cache l'élément main
+        document.querySelector('main').classList.remove('block')
     }
 
     // Méthode pour fermer la boîte de lumière

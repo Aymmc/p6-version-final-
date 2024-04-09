@@ -14,6 +14,7 @@ class Modal {
         this.$wrapper.style.display = 'none'
         this.body.classList.remove('no-scroll')
         this.main.classList.add('block')
+        this.main.classList.remove('none')
     }
     isValidEmail(email) {
         return /\S+@\S+\.\S+/.test(email);
