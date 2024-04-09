@@ -11,7 +11,6 @@ class ProxyRatingSorter {
         // Vérification si un résultat est trouvé dans le cache
         if (cachedResult) {
             // Affichage d'un message indiquant que les données sont récupérées depuis le cache
-            console.log('get from cache')
             // Retourne le résultat trouvé dans le cache
             return cachedResult
         }
@@ -25,43 +24,50 @@ class ProxyRatingSorter {
     }
 }
 class RatingSorterApi {
+    // Définit une méthode statique pour trier les données selon un critère spécifié
     static async sorter(data, orderBy) {
+        // Vérifie le critère de tri spécifié
         if (orderBy === 'date') {
+            // Si le critère est 'date', effectue un tri par date
             return new Promise((resolve) => {
+                // Retourne une promesse pour effectuer le tri de manière asynchrone
                 setTimeout(() => {
+                    // Utilise setTimeout pour simuler une opération asynchrone
                     const result = {
-                        key: orderBy,
-                        data: Array.from(data).sort(
+                        key: orderBy, // Clé du critère de tri
+                        data: Array.from(data).sort( // Trie les données par date
                             (a, b) => new Date(a.date) - new Date(b.date))
-                    }
-                    resolve(result)
-                }, 1000)
-            })
+                    };
+                    resolve(result); // Résout la promesse avec le résultat du tri
+                }, 1000); // Délai d'attente de 1 seconde (simulé)
+            });
         } else if (orderBy === 'popularity') {
+            // Si le critère est 'popularity', effectue un tri par popularité (nombre de likes)
             return new Promise((resolve) => {
                 setTimeout(() => {
                     const result = {
-                        key: orderBy,
-                        data: Array.from(data).sort((a, b) => b.likes - a.likes)
-                    }
-                    resolve(result)
-                }, 1000)
-            })
+                        key: orderBy, // Clé du critère de tri
+                        data: Array.from(data).sort((a, b) => b.likes - a.likes) // Trie les données par popularité décroissante
+                    };
+                    resolve(result); // Résout la promesse avec le résultat du tri
+                }, 1000); // Délai d'attente de 1 seconde (simulé)
+            });
         } else if (orderBy === 'Titre') {
+            // Si le critère est 'Titre', effectue un tri alphabétique par titre
             return new Promise((resolve) => {
                 setTimeout(() => {
                     const result = {
-                        key: orderBy,
+                        key: orderBy, // Clé du critère de tri
                         data: Array.from(data).sort(function (a, b) {
-                            return a.title.localeCompare(b.title);
-                        }
-                        )
-                    }
-                    resolve(result)
-                }, 1000)
-            })
+                            return a.title.localeCompare(b.title); // Trie les données par titre (ordre alphabétique)
+                        })
+                    };
+                    resolve(result); // Résout la promesse avec le résultat du tri
+                }, 1000); // Délai d'attente de 1 seconde (simulé)
+            });
         } else {
-            throw 'unknow orderBy type'
+            // Si le critère de tri n'est pas reconnu, lance une erreur
+            throw 'unknow orderBy type'; // Lance une erreur avec un message spécifié
         }
     }
 }

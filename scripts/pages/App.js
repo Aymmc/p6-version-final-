@@ -81,7 +81,6 @@ class App {
                 const modal = new Modal();
                 // Rendre la fenêtre modale
                 modal.render();
-                const modalcontent = document.querySelector('.contact_modal')
                 const close = document.querySelector('.fermermodale')
                 // Afficher la fenêtre modale
                 modal.$wrapper.style.display = "block";

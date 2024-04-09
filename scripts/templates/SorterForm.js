@@ -76,7 +76,6 @@ class SorterForm {
                 const sorter = e.target.value;
                 // Trie les médias en fonction du type de tri sélectionné
                 this.sorterMedias(sorter);
-                console.log('test')
                 
             });
     }
