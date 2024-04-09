@@ -1,10 +1,10 @@
 class photographerCard {
     constructor(photographer, media, photographerName, mediaItem, photographerPrice) {
-        this.photographer = photographer
-        this.media = media
-        this.photographerName = photographerName
-        this.mediaItem = mediaItem
-        this.photographerPrice = photographerPrice
+        this.photographer = photographer;
+        this.media = media;
+        this.photographerName = photographerName;
+        this.mediaItem = mediaItem;
+        this.photographerPrice = photographerPrice;
     }
     getHeader() {
         const $wrapper = document.createElement('div');
@@ -20,13 +20,13 @@ class photographerCard {
         <img alt="${this.photographer.name}" src="../../assets/photographers/${this.photographer.portrait}"/>
         </div>
         </div> 
-        `
-        $wrapper.innerHTML = header
-        return $wrapper
+        `;
+        $wrapper.innerHTML = header;
+        return $wrapper;
     }
     getUserCardDOM() {
-        const photographer = this.photographer
-        const $wrapper = document.createElement('div')
+        const photographer = this.photographer;
+        const $wrapper = document.createElement('div');
         const photographerCard = `
         <article>
         <a href="photographer.html?id=${this.photographer.id}">
@@ -41,9 +41,9 @@ class photographerCard {
             <span>${this.photographer.price}€/jour</span> 
             </p>
         </article>
-        `
-        $wrapper.innerHTML = photographerCard
-        return $wrapper
+        `;
+        $wrapper.innerHTML = photographerCard;
+        return $wrapper;
     }
     getUserCardMedia() {
         const $wrapper = document.createElement('div');
@@ -75,7 +75,7 @@ class photographerCard {
             mediaContent = `
             <article alt="${this.media.title}">
                 <div>
-                    <a tabindex=-1 arial-label="cliquez ici pour ouvrir la lightbox" alt="${this.media.title}" href="../assets/sample_photo/${this.photographerName}/${this.media.image}">
+                <a tabindex="-1" aria-label="Cliquez ici pour ouvrir la lightbox et afficher ${this.media.title}" href="../assets/sample_photo/${this.photographerName}/${this.media.image}">
                         <div class="imagegalerie">
                             <img tabindex=0 class="imggalerie" alt="${this.media.title} cliquez ici pour ouvrir la lightbox" src="../assets/sample_photo/${this.photographerName}/${this.media.image}">
                         </div>
@@ -95,15 +95,15 @@ class photographerCard {
     }
     getCompteurLike() {
         const $wrapper = document.createElement('div');
-        $wrapper.classList.add('compteurargent')
+        $wrapper.classList.add('compteurargent');
         const compteur = `
         <div class="compteur"> ${app.totalLikes}<img class="coeur" src="../../assets/coeurnoir.svg" alt="image coeur noir" tabindex="0">
       </div>
       <div class="argent">
         <p>${app.price}€/jour </p>
       </div>
-        `
+        `;
         $wrapper.innerHTML = compteur;
         return $wrapper;
     }
-}    
+}
